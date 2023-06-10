@@ -1,0 +1,24 @@
+import axios from "axios";
+import React ,{createContext,useEffect,useState}from "react";
+export const usersContext=createContext();
+const UsersContextProvider = (props) => {
+    const [users,setUsers]=useState([]);
+    useEffect(()=>{
+        axios.get("https://jsonplaceholder.typicode.com/users")
+        .then(res=>{
+            setUsers(res.data)
+        })
+
+   
+    },[])
+    
+    return (
+       <usersContext.Provider value={{users}}>
+        {props.children}
+       </usersContext.Provider>
+
+    );
+}
+
+
+export default UsersContextProvider;
